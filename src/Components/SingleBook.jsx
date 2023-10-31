@@ -54,10 +54,14 @@ class SingleBook extends Component {
     render(){
         return (
            <>
-             <Row>
-              <Col xs={1}></Col>
-                  <Col xs={3} className="mb-5" key={this.props.book.asin}>
-                    <Card onClick = {()=> {this.setState({selected: !this.state.selected})}} className={this.state.selected ? 'border-danger  border-3' : "" }>
+             
+              
+                  <Col xs={4} className="mb-5" key={this.props.book.asin}>
+                    <Card onClick = {()=> {this.setState({selected: !this.state.selected})
+                    this.props.changeAsin(this.props.book.asin)}} 
+                    // className={this.state.selected ? 'border-danger  border-3' : "" }
+                     className={this.props.book.asin === this.props.selectedAsin ? 'border-danger  border-3' : "" }
+                    >
                       <Card.Img variant="top" src={this.props.book.img} />
                       <Card.Body>
                         <Card.Title>{this.props.book.title}</Card.Title>
@@ -67,7 +71,7 @@ class SingleBook extends Component {
                 {/* <Col xs={6}>
                      { this.state.selected && <CommentArea bookId={this.props.book.asin}/> }
                 </Col> */}
-              </Row>
+              
            </>
         );
     }

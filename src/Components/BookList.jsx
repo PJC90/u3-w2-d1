@@ -1,6 +1,7 @@
 import { Component } from "react";
 import SingleBook from "./SingleBook";
 import { Container, Row, Form, Col } from "react-bootstrap";
+import CommentArea from "./CommentArea";
 
 
 //mi serve uno stato per salvare la stringa di ricerca quindi la funzione non mi va bene più e mi serve una classe
@@ -26,7 +27,14 @@ class BookList extends Component {
 
 
 state = {
-searchValue:""
+searchValue:"",
+selectedAsin: null //perchè non hai selezionato ancora nessun libro
+}
+
+changeAsin = (newAsin) => {//passo questo metodo come props a SingleBook
+  this.setState({
+    selectedAsin:newAsin,
+  })
 }
 
 render(){
@@ -38,14 +46,19 @@ return(
       </Form.Group>
       </Row>
       <Row>
-        <Col>
+        <Col md={8}>
+        <Row>
           {this.props.manyBooks
           .filter((oneBook)=>oneBook.title.toLowerCase().includes(this.state.searchValue.toLowerCase()))
           .map((oneBook)=>{
             return(
-             <SingleBook book={oneBook} key={oneBook.asin}/>
+             <SingleBook book={oneBook} key={oneBook.asin} changeAsin={this.changeAsin} selectedAsin={this.state.selectedAsin}/>//changeAsin bisogna invocarla dentro singleBook
                 )
             })}
+            </Row>
+        </Col>
+        <Col md={4}>
+        <CommentArea bookId={this.state.selectedAsin}/>
         </Col>
     </Row>
   </Container >

@@ -8,11 +8,19 @@ class CommentArea extends Component{
 state = {
     comments: []
 }
-
-componentDidMount = ()=>{
-    //viene eseguito usa sola volta
-    // ora faremo la fetch per recuperare i commenti
-this.getComments()
+// non mi serve + perchè mi serve un metodo che si aggiorna ogni volta che cambio libro
+// componentDidMount = ()=>{
+//     //viene eseguito usa sola volta
+//     // ora faremo la fetch per recuperare i commenti
+//     if(this.props.bookId){ //questo perchè ho messo <CommentArea bookId={null}/> in booklist x evitare che tutti i commenti mi appaiono sulla pagina all'inizio senza che nessuna card è selezionata
+//         this.getComments()
+//     }
+// }
+componentDidUpdate(prevProps, prevState){
+    if(prevProps.bookId !== this.props.bookId){
+        // faccio la fetch quando viene cambiato il bookId
+        this.getComments()
+    }
 }
 
 getComments = async()=>{
@@ -41,7 +49,7 @@ getComments = async()=>{
     render(){
         return(
             <Row className="d-flex justify-content-center">
-                <Col xs={6} >
+                <Col >
                 <div><CommentList reviews={this.state.comments}/></div>
                 <div><AddComment bookId={this.props.bookId}/></div>
                 </Col>

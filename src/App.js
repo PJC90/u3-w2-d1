@@ -23,14 +23,9 @@ class App extends Component {
         <CustomNavbar addText="Mondadori" />
         <AdditionalContentExample />
         {/* <SingleBook book={h[1]} /> */}
-        <Row>
-          <Col>
-            <BookList manyBooks={h} />
-          </Col>
-          <Col>
-            <CommentArea selected={this.state.selected} />
-          </Col>
-        </Row>
+
+        <BookList manyBooks={h} />
+
         <MyFooter />
       </div>
     )
